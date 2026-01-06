@@ -1,31 +1,20 @@
 <?php
+require_once __DIR__ . '/../functions.php';
+require_once __DIR__ . '/../connexiondb.php';
 
-include dirname(__DIR__) . '/functions.php';
-require dirname(__DIR__) . '/connexiondb.php';
-
+// Traitement du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['envoyer'])) {
-
-    // traitement du formulaire
     $prenom = clean($_POST['prenom']);
     $nom = clean($_POST['nom']);
-    $sexe = $_POST['sexe']; // enum, pas besoin de clean
+    $sexe = $_POST['sexe'];
     $service = clean($_POST['service']);
     $date_embauche = $_POST['date_embauche'];
     $salaire = clean($_POST['salaire']);
 
-    addEmploye(
-        $pdo,
-        $prenom,
-        $nom,
-        $sexe,
-        $service,
-        $date_embauche,
-        $salaire
-    );
+    addEmploye($pdo, $prenom, $nom, $sexe, $service, $date_embauche, $salaire);
 
-    // redirection après insertion
-    header('Location: ' . WEB_ROOT . '/employe/list-employe.php');
-    exit();
+    redirect('/employe/list-employe.php');
 }
 
-include PATH_PROJET . '/views/employe/add-employe-view.php';
+// Affichage de la vue
+require_once __DIR__ . '/../views/employe/add-employe-view.php';
