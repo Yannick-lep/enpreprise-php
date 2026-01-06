@@ -131,3 +131,8 @@ function clean($dataParam)
     $data = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
     return $data;
 }
+
+function redirect($url){
+    require $url;
+    die();
+}
